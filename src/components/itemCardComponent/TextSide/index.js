@@ -1,40 +1,33 @@
 import React from "react";
-
+import "./style.css";
 function TextContainerComponent(props) {
-  console.log(props);
   const { title, price, description, details } = props.infos;
-  const { brand, model, sku, color, collection, stock } = details;
+
+  var styleTop = 228;
   return (
-    <div>
-      <div>{title}</div>
-      <div className="prime">{"$" + price}</div>
+    <div
+      className="detailContainer"
+      style={{ left: props.position === "left" ? 40 : 601 }}
+    >
+      <div className="detailTitle">{title}</div>
+      <div className="price">{"$" + price}</div>
       <div className="info">{description}</div>
 
       <div className="details">
-        <div className="brandDetail">
-          <p>Shoes Brand</p>
-          <p>{brand}</p>
-        </div>
-        <div className="brandDetail">
-          <p>Shoes Brand</p>
-          <p>{model}</p>
-        </div>
-        <div className="brandDetail">
-          <p>Shoes Brand</p>
-          <p>{sku}</p>
-        </div>
-        <div className="brandDetail">
-          <p>Shoes Brand</p>
-          <p>{color}</p>
-        </div>
-        <div className="brandDetail">
-          <p>Shoes Brand</p>
-          <p>{collection}</p>
-        </div>
-        <div className="brandDetail">
-          <p>Shoes Brand</p>
-          <p>{stock}</p>
-        </div>
+        {Object.keys(details).map((key, i) => {
+          return (
+            !(key === "model") && (
+              <div key={i}>
+                <div className="detailName" style={{ top: (styleTop += 29) }}>
+                  {key}
+                </div>
+                <div className="detail" style={{ top: styleTop }}>
+                  {details[key]}
+                </div>
+              </div>
+            )
+          );
+        })}
       </div>
     </div>
   );

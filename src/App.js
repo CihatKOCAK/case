@@ -1,13 +1,24 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import CardComponent from "./components/itemCardComponent";
-import { datas } from "./services/apiGet.service";
+import { url } from "./const";
+import { getItems } from "./services/apiGet.service";
 
 function App() {
-  console.log(datas);
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    getItems(url)
+      .then((data) => {
+        setItems(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div className="App">
-      {datas.map((item, i) => {
+      {items.map((item, i) => {
         return <CardComponent items={item} key={i} />;
       })}
     </div>
